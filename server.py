@@ -4,6 +4,9 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
                           ConversationHandler)
 
+import profile
+import state
+
 VERIFICATION_TOKEN = "841052885:AAHzY9v0Q_waTOFJsdnYtVcdMjyBVKJ9nyI"
 
 # Enable logging
@@ -12,7 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-MAIN_MENU, PROFILE, SEARCH_PRODUCT = range(3)
+# MAIN_MENU, PROFILE, SEARCH_PRODUCT, EDIT_PROFILE, DISPLAY_PROFILE = range(5)
 
 reply_keyboard = [['Profile'],
                   ['Search Product'],
@@ -34,24 +37,26 @@ def start(update, context):
         "Hi! I'm ShopBot! I will be your shopping assistant!",
         reply_markup=markup)
 
-    return MAIN_MENU
+    return state.MAIN_MENU
 
 
-def profile(update, context):
-    text = update.message.text
-    context.user_data['choice'] = text
-    update.message.reply_text('Do you want to see your profile or edit it?')
-
-    return PROFILE
+# def profile(update, context):
+#     text = update.message.text
+#     context.user_data['choice'] = text
+#     update.message.reply_text('Do you want to see your profile or edit it?')
+#
+#     return state.PROFILE
 
 
 def search_product(update, context):
     update.message.reply_text('Alright, what kind of product are you looking for?"')
-    return SEARCH_PRODUCT
+    return state.SEARCH_PRODUCT
+
 
 def about(update, context):
     update.message.reply_text('Shopping Assistant Chatbot \nDeveloped By Yashar, Sahand, Saketh and Rajesh')
-    return MAIN_MENU
+    return state.MAIN_MENU
+
 
 # def received_information(update, context):
 #     user_data = context.user_data
@@ -100,13 +105,19 @@ def main():
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
-            MAIN_MENU: [MessageHandler(Filters.regex('^.*(Profile|profile).*$'), profile),
-                        MessageHandler(Filters.regex('^.*(Search|search|Product|product).*$'), search_product),
-                        MessageHandler(Filters.regex('^(About|about)$'), about)],
+            state.MAIN_MENU: [MessageHandler(Filters.regex('^.*(Profile|profile).*$'), profile.profile),
+                              MessageHandler(Filters.regex('^.*(Search|search|Product|product).*$'), search_product),
+                              MessageHandler(Filters.regex('^(About|about)$'), about)],
 
-            PROFILE: [MessageHandler(Filters.text, start)],
+            state.PROFILE: [MessageHandler(Filters.regex('^.*(Display|display|Show|show).*$'), profile.display),
+                            MessageHandler(Filters.regex('^.*(Edit|edit|Modify|modify).*$'), profile.edit),
+                            MessageHandler(Filters.regex('^(Back|back|Main|main)$'), start)],
 
-            SEARCH_PRODUCT: [MessageHandler(Filters.text, start)]
+
+            state.EDIT_PROFILE: [MessageHandler(Filters.regex('^.*(First|first).*$'), profile.edit_firstname),
+                                 MessageHandler(Filters.regex('^.*(Back|back|Main|main).*$'), profile.profile)],
+
+            state.SEARCH_PRODUCT: [MessageHandler(Filters.text, start)]
         },
         fallbacks=[MessageHandler(Filters.regex('^.*Done.*$'), done)]
     )
@@ -123,6 +134,7 @@ def main():
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
+
 
 if __name__ == '__main__':
     main()
