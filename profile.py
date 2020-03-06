@@ -1,7 +1,6 @@
 import state
 from telegram import ReplyKeyboardMarkup
 
-
 def profile(update, context):
     reply_keyboard = [['Edit Profile', 'Display Profile'], ['Back']]
     markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
@@ -20,11 +19,16 @@ def edit(update, context):
 
     return state.EDIT_PROFILE
 
+def goto_firstname_state(update, context):
+    update.message.reply_text("Please tell me what\'s your firstname?")
+    return state.EDIT_FNAME
 
 def edit_firstname(update, context):
-    update.message.reply_text("Please tell me whats your firstname?")
-
-
+    firstname = update.message.text
+    print(firstname)
+    if firstname != 'Back':
+        update.message.reply_text("Thanks %s" %firstname)
+    return state.EDIT_PROFILE
 #
 #   TODO edit firstname
 #

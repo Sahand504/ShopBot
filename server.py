@@ -113,9 +113,12 @@ def main():
                             MessageHandler(Filters.regex('^.*(Edit|edit|Modify|modify).*$'), profile.edit),
                             MessageHandler(Filters.regex('^(Back|back|Main|main)$'), start)],
 
-
-            state.EDIT_PROFILE: [MessageHandler(Filters.regex('^.*(First|first).*$'), profile.edit_firstname),
+            state.EDIT_PROFILE: [MessageHandler(Filters.regex('^.*(First|first).*$'), profile.goto_firstname_state),
                                  MessageHandler(Filters.regex('^.*(Back|back|Main|main).*$'), profile.profile)],
+            state.EDIT_FNAME: [MessageHandler(Filters.text, profile.edit_firstname)],
+
+            # state.EDIT_PROFILE: [CommandHandler(Filters.regex('^.*(First|first).*$'), profile.edit_firstname),
+            #                      MessageHandler(Filters.regex('^.*(Back|back|Main|main).*$'), profile.profile)],
 
             state.SEARCH_PRODUCT: [MessageHandler(Filters.text, start)]
         },
