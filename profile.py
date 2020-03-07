@@ -1,5 +1,6 @@
 import state
 from telegram import ReplyKeyboardMarkup
+from controllers import profile_management
 
 def profile(update, context):
     reply_keyboard = [['Edit Profile', 'Display Profile'], ['Back']]
@@ -27,6 +28,7 @@ def edit_firstname(update, context):
     firstname = update.message.text
     print(firstname)
     if firstname != 'Back':
+        profile_management.update_user(update.effective_user["id"], "first_name", firstname)
         update.message.reply_text("Thanks %s" %firstname)
     return state.EDIT_PROFILE
 #

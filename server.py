@@ -4,8 +4,8 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
                           ConversationHandler)
 
-import profile
-import state
+import profile, state
+from controllers import profile_management
 
 VERIFICATION_TOKEN = "841052885:AAHzY9v0Q_waTOFJsdnYtVcdMjyBVKJ9nyI"
 
@@ -33,8 +33,10 @@ def facts_to_str(user_data):
 
 
 def start(update, context):
+    user = update.effective_user
+    message = profile_management.get_start_message(user)
     update.message.reply_text(
-        "Hi! I'm ShopBot! I will be your shopping assistant!",
+        message,
         reply_markup=markup)
 
     return state.MAIN_MENU
