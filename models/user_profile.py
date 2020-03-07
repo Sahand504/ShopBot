@@ -19,4 +19,3 @@ def update_by_uid(user_id, field, value):
     query = {"user_id": user_id}
     update_set = {"$set": {field: value}}
     x = my_col.update(query, update_set)
-

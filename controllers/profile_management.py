@@ -1,6 +1,5 @@
 from models import user_profile
 
-
 def search_user(user_id):
     user = user_profile.find_user_by_uid(user_id)
     return user
@@ -22,5 +21,11 @@ def get_start_message(effective_user):
     else:
         return "Hello and welcome back %s" % user["first_name"]
 
-
-
+def user_info_tostr(user_id):
+    user_dic = search_user(user_id)
+    user_str = ""
+    for k, v in user_dic.items():
+        if k == "_id" or k == "user_id" or v is None:
+            continue
+        user_str += str(k).replace('_', '') + ": " + str(v) + '\n'
+    return user_str

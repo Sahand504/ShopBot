@@ -49,6 +49,7 @@ def edit_field(update, context, field_name):
         update.message.reply_text("Thanks")
     return state.EDIT_PROFILE
 
+
 def edit_gender(update, context):
     gender = update.message.text
     if gender == "Back":
@@ -57,25 +58,9 @@ def edit_gender(update, context):
         profile_management.update_user(update.effective_user["id"], "gender", gender)
         return edit(update, context)
 
+
 def display(update, context):
     user_id = update.effective_user["id"]
-    user = profile_management.search_user(user_id)
-    print(str(user))
-    update.message.reply_text(str(user))
-
-
-
-    # name = "name"
-    # address = "address"
-    # phone_num = "123-123-1234"
-    # gender = "M"
-    # shirt_size = 'M'
-    # shoe_size = '10'
-
-    # print('Firstname: %s \nLastname: %s \nchat_id: %s \n'
-    #       % (update.effective_user.first_name, update.effective_user.last_name, update.message.user_id))
-
-
-
-    # update.message.reply_text('Firstname: %s \nLastname: %s \nchatid: %s \n'
-    #       % (update.effective_user.first_name, update.effective_user.last_name, update.message.user_id))
+    user_str = profile_management.user_info_tostr(user_id)
+    print(user_str)
+    update.message.reply_text(user_str)
