@@ -3,8 +3,10 @@ import logging
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
                           ConversationHandler)
+from functools import partial
 
-import profile, state
+import profile
+import state
 from controllers import profile_management
 
 VERIFICATION_TOKEN = "841052885:AAHzY9v0Q_waTOFJsdnYtVcdMjyBVKJ9nyI"
@@ -42,14 +44,6 @@ def start(update, context):
     return state.MAIN_MENU
 
 
-# def profile(update, context):
-#     text = update.message.text
-#     context.user_data['choice'] = text
-#     update.message.reply_text('Do you want to see your profile or edit it?')
-#
-#     return state.PROFILE
-
-
 def search_product(update, context):
     update.message.reply_text('Alright, what kind of product are you looking for?"')
     return state.SEARCH_PRODUCT
@@ -58,21 +52,6 @@ def search_product(update, context):
 def about(update, context):
     update.message.reply_text('Shopping Assistant Chatbot \nDeveloped By Yashar, Sahand, Saketh and Rajesh')
     return state.MAIN_MENU
-
-
-# def received_information(update, context):
-#     user_data = context.user_data
-#     text = update.message.text
-#     category = user_data['choice']
-#     user_data[category] = text
-#     del user_data['choice']
-#
-#     update.message.reply_text("Neat! Just so you know, this is what you already told me:"
-#                               "{} You can tell me more, or change your opinion"
-#                               " on something.".format(facts_to_str(user_data)),
-#                               reply_markup=markup)
-#
-#     return CHOOSING
 
 
 def done(update, context):
@@ -116,11 +95,14 @@ def main():
                             MessageHandler(Filters.regex('^(Back|back|Main|main)$'), start)],
 
             state.EDIT_PROFILE: [MessageHandler(Filters.regex('^.*(First|first).*$'), profile.goto_firstname_state),
+                                 MessageHandler(Filters.regex('^.*(Last|last|Family|family).*$'), profile.goto_lastname_state),
+                                 MessageHandler(Filters.regex('^.*(Gender|gender|Sex|sex).*$'), profile.goto_gender_state),
+                                 MessageHandler(Filters.regex('^.*(Postal|postal).*$'), profile.goto_postalcode_state),
                                  MessageHandler(Filters.regex('^.*(Back|back|Main|main).*$'), profile.profile)],
-            state.EDIT_FNAME: [MessageHandler(Filters.text, profile.edit_firstname)],
-
-            # state.EDIT_PROFILE: [CommandHandler(Filters.regex('^.*(First|first).*$'), profile.edit_firstname),
-            #                      MessageHandler(Filters.regex('^.*(Back|back|Main|main).*$'), profile.profile)],
+            state.EDIT_FNAME: [MessageHandler(Filters.text, partial(profile.edit_field, field_name='first_name'))],
+            state.EDIT_LNAME: [MessageHandler(Filters.text, partial(profile.edit_field, field_name='last_name'))],
+            state.EDIT_GENDER: [MessageHandler(Filters.text, profile.edit_gender)],
+            state.EDIT_POSTALCODE: [MessageHandler(Filters.text, partial(profile.edit_field, field_name='postal_code'))],
 
             state.SEARCH_PRODUCT: [MessageHandler(Filters.text, start)]
         },

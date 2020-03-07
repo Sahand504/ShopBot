@@ -12,7 +12,7 @@ def profile(update, context):
 
 def edit(update, context):
     reply_keyboard = [['Firstname', 'Lastname'],
-                      ['Address', 'Phone Number'],
+                      ['Gender', 'Postal Code'],
                       ['Shirt Size', 'Shoe Size'],
                       ['Back']]
     markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
@@ -24,16 +24,38 @@ def goto_firstname_state(update, context):
     update.message.reply_text("Please tell me what\'s your firstname?")
     return state.EDIT_FNAME
 
-def edit_firstname(update, context):
-    firstname = update.message.text
-    print(firstname)
-    if firstname != 'Back':
-        profile_management.update_user(update.effective_user["id"], "first_name", firstname)
-        update.message.reply_text("Thanks %s" %firstname)
+
+def goto_lastname_state(update, context):
+    update.message.reply_text("Please tell me what\'s your lastname?")
+    return state.EDIT_LNAME
+
+
+def goto_gender_state(update, context):
+    reply_keyboard = [['Male', 'Female']]
+    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    update.message.reply_text('Please tell me what\'s your gender?', reply_markup=markup)
+    return state.EDIT_GENDER
+
+
+def goto_postalcode_state(update, context):
+    update.message.reply_text("Please tell me what\'s your postal code?")
+    return state.EDIT_POSTALCODE
+
+
+def edit_field(update, context, field_name):
+    field = update.message.text
+    if field != 'Back':
+        profile_management.update_user(update.effective_user["id"], field_name, field)
+        update.message.reply_text("Thanks")
     return state.EDIT_PROFILE
-#
-#   TODO edit firstname
-#
+
+def edit_gender(update, context):
+    gender = update.message.text
+    if gender == "Back":
+        return edit(update, context)
+    elif gender == "Male" or gender == "Female":
+        profile_management.update_user(update.effective_user["id"], "gender", gender)
+        return edit(update, context)
 
 def display(update, context):
     name = "name"
