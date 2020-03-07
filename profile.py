@@ -58,15 +58,24 @@ def edit_gender(update, context):
         return edit(update, context)
 
 def display(update, context):
-    name = "name"
-    address = "address"
-    phone_num = "123-123-1234"
-    gender = "M"
-    shirt_size = 'M'
-    shoe_size = '10'
+    user_id = update.effective_user["id"]
+    user = profile_management.search_user(user_id)
+    print(str(user))
+    update.message.reply_text(str(user))
 
-    print('Firstname: %s \nLastname: %s \nchat_id: %s \n'
-          % (update.effective_user.first_name, update.effective_user.last_name, update.message.chat_id))
 
-    update.message.reply_text('Firstname: %s \nLastname: %s \nchatid: %s \n'
-          % (update.effective_user.first_name, update.effective_user.last_name, update.message.chat_id))
+
+    # name = "name"
+    # address = "address"
+    # phone_num = "123-123-1234"
+    # gender = "M"
+    # shirt_size = 'M'
+    # shoe_size = '10'
+
+    # print('Firstname: %s \nLastname: %s \nchat_id: %s \n'
+    #       % (update.effective_user.first_name, update.effective_user.last_name, update.message.user_id))
+
+
+
+    # update.message.reply_text('Firstname: %s \nLastname: %s \nchatid: %s \n'
+    #       % (update.effective_user.first_name, update.effective_user.last_name, update.message.user_id))
