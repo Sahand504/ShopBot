@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 reply_keyboard = [['Profile'],
                   ['Search Product'],
                   ['About', 'Done']]
-markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
 
 
 def facts_to_str(user_data):

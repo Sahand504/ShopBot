@@ -4,7 +4,7 @@ from controllers import profile_management
 
 def profile(update, context):
     reply_keyboard = [['Edit Profile', 'Display Profile'], ['Back']]
-    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text('Do you want to see your profile or edit it?', reply_markup=markup)
 
     return state.PROFILE
@@ -32,7 +32,7 @@ def goto_lastname_state(update, context):
 
 def goto_gender_state(update, context):
     reply_keyboard = [['Male', 'Female']]
-    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text('Please tell me what\'s your gender?', reply_markup=markup)
     return state.EDIT_GENDER
 
