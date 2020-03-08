@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8452ddf8-3b96-4c46-bcb1-870091aa66b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/profile_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/profile_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user_profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user_profile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/profile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/state.py" beforeDir="false" afterPath="$PROJECT_DIR$/state.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583618958189</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add profile edit_shirtsize">
+      <created>1583644399690</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1583644399690</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +171,7 @@
     <MESSAGE value="add display user's json" />
     <MESSAGE value="add display" />
     <MESSAGE value="add keyboard resize" />
-    <option name="LAST_COMMIT_MESSAGE" value="add keyboard resize" />
+    <MESSAGE value="add profile edit_shirtsize" />
+    <option name="LAST_COMMIT_MESSAGE" value="add profile edit_shirtsize" />
   </component>
 </project>

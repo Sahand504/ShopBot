@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 reply_keyboard = [['Profile'],
                   ['Search Product'],
                   ['About', 'Done']]
-markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True)
+markup = ReplyKeyboardMarkup(reply_keyboard, resize_keyboard=True)
 
 
 def facts_to_str(user_data):
@@ -65,7 +65,7 @@ def done(update, context):
     update.message.reply_text("I learned these facts about you:\n"
                               "{}\n"
                               "Until next time!\n"
-                              "type /start to start over!".format(facts_to_str(user_data)))
+                              "Press /start to start over!".format(facts_to_str(user_data)))
 
     user_data.clear()
     return ConversationHandler.END
