@@ -12,6 +12,11 @@ def insert_user(user_id, firstname="", lastname=""):
 def update_user(user_id, field, value):
     user_profile.update_by_uid(user_id, field, value)
 
+def update_user_by_push(user_id, field, value):
+    user_profile.push_by_uid(user_id, field, value)
+
+def update_user_by_pull(user_id, field, value):
+    user_profile.pull_by_uid(user_id, field, value)
 
 def get_start_message(effective_user):
     user = search_user(effective_user["id"])

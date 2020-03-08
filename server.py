@@ -50,7 +50,10 @@ def search_product(update, context):
 
 
 def about(update, context):
-    update.message.reply_text('Shopping Assistant Chatbot \nDeveloped By Yashar, Sahand, Saketh and Rajesh')
+    update.message.reply_text('Shopping Assistant Chatbot \n'
+                              'Developed By Sahand and Yashar \n'
+                              'sasri@lakeheadu.ca \n'
+                              'yghemi@lakeheadu.ca')
     return state.MAIN_MENU
 
 
@@ -98,11 +101,13 @@ def main():
                                  MessageHandler(Filters.regex('^.*(Last|last|Family|family).*$'), profile.goto_lastname_state),
                                  MessageHandler(Filters.regex('^.*(Gender|gender|Sex|sex).*$'), profile.goto_gender_state),
                                  MessageHandler(Filters.regex('^.*(Postal|postal).*$'), profile.goto_postalcode_state),
+                                 MessageHandler(Filters.regex('^.*(Shirt|shirt).*$'), profile.goto_shirtsize_state),
                                  MessageHandler(Filters.regex('^.*(Back|back|Main|main).*$'), profile.profile)],
             state.EDIT_FNAME: [MessageHandler(Filters.text, partial(profile.edit_field, field_name='first_name'))],
             state.EDIT_LNAME: [MessageHandler(Filters.text, partial(profile.edit_field, field_name='last_name'))],
             state.EDIT_GENDER: [MessageHandler(Filters.text, profile.edit_gender)],
             state.EDIT_POSTALCODE: [MessageHandler(Filters.text, partial(profile.edit_field, field_name='postal_code'))],
+            state.EDIT_SHIRTSIZE: [MessageHandler(Filters.text, profile.edit_shirt_size)],
 
             state.SEARCH_PRODUCT: [MessageHandler(Filters.text, start)]
         },

@@ -19,3 +19,15 @@ def update_by_uid(user_id, field, value):
     query = {"user_id": user_id}
     update_set = {"$set": {field: value}}
     x = my_col.update(query, update_set)
+
+
+def push_by_uid(user_id, field, value):
+    query = {"user_id": user_id}
+    update_set = {"$push": {field: value}}
+    x = my_col.update(query, update_set, upsert=True)
+
+
+def pull_by_uid(user_id, field, value):
+    query = {"user_id": user_id}
+    update_set = {"$pull": {field: value}}
+    x = my_col.update(query, update_set, upsert=True)
